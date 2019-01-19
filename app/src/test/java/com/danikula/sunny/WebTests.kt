@@ -1,10 +1,11 @@
 package com.danikula.sunny
 
+import com.danikula.sunny.di.TestInjectorFactory
 import com.danikula.sunny.web.ForecastApi
-import com.danikula.sunny.web.ForecastApiFactory
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import javax.inject.Inject
 
 /**
  * Tests for web layer
@@ -15,11 +16,14 @@ const val LONDON_ID: Int = 2643743
 
 class WebTests {
 
-    private lateinit var api: ForecastApi
+    @Inject
+    lateinit var api: ForecastApi
 
     @Before
     fun setup() {
-        api = ForecastApiFactory.newApi()
+        TestInjectorFactory
+            .newAppInjector()
+            .inject(this)
     }
 
     @Test
