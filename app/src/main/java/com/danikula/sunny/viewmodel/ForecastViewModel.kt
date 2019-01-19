@@ -1,4 +1,4 @@
-package com.danikula.sunny.ui
+package com.danikula.sunny.viewmodel
 
 import android.arch.lifecycle.ViewModel
 

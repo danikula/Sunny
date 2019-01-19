@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.danikula.sunny.R
+import com.danikula.sunny.viewmodel.ForecastViewModel
 
 class ForecastActivity : AppCompatActivity() {
 

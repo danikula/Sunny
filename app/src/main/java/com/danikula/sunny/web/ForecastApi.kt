@@ -2,7 +2,7 @@ package com.danikula.sunny.web
 
 import com.danikula.sunny.web.dto.ForecastResponse
 import com.danikula.sunny.web.dto.PlacesSearchResponse
-import io.reactivex.Single
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -14,9 +14,9 @@ import retrofit2.http.Query
 interface ForecastApi {
 
     @GET("data/2.5/find")
-    fun findCity(@Query("q") searchKey: String): Single<PlacesSearchResponse>
+    fun findCity(@Query("q") searchKey: String): Observable<PlacesSearchResponse>
 
     @GET("data/2.5/forecast")
-    fun getForecast(@Query("id") cityId: Int): Single<ForecastResponse>
+    fun getForecast(@Query("id") cityId: Int): Observable<ForecastResponse>
 
 }
