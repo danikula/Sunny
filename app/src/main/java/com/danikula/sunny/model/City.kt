@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 data class City(
 
     @PrimaryKey
-    val id: Int,
+    val id: Long,
 
     val name: String,
 

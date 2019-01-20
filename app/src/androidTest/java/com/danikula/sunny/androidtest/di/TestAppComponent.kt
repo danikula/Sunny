@@ -1,6 +1,7 @@
 package com.danikula.sunny.androidtest.di
 
-import com.danikula.sunny.androidtest.StorageTests
+import com.danikula.sunny.androidtest.DaoTests
+import com.danikula.sunny.androidtest.RepositoryTests
 import dagger.Component
 import javax.inject.Singleton
 
@@ -8,5 +9,7 @@ import javax.inject.Singleton
 @Component(modules = [TestAppModule::class])
 interface TestAppComponent {
 
-    fun inject(storageTest: StorageTests)
+    fun inject(daoTest: DaoTests)
+
+    fun inject(repositoryTest: RepositoryTests)
 }

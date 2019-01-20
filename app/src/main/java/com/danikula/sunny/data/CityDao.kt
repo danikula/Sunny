@@ -2,6 +2,7 @@ package com.danikula.sunny.data
 
 import android.arch.persistence.room.*
 import com.danikula.sunny.model.City
+import io.reactivex.Single
 
 /**
  * @author Alexey Danilov (danikula@gmail.com).
@@ -10,11 +11,11 @@ import com.danikula.sunny.model.City
 interface CityDao {
 
     @Query("SELECT * FROM city")
-    fun queryAllCities(): List<City>
+    fun queryAllCities(): Single<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCity(city: City)
+    fun insertCity(city: City): Long
 
     @Delete
-    fun deleteCity(city: City)
+    fun deleteCity(city: City): Int
 }

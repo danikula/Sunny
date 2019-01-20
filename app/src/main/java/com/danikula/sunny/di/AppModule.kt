@@ -3,6 +3,7 @@ package com.danikula.sunny.di
 import android.app.Application
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.persistence.room.Room
+import com.danikula.sunny.data.CityDao
 import com.danikula.sunny.data.Database
 import com.danikula.sunny.data.Repository
 import com.danikula.sunny.viewmodel.SearchViewModelFactory
@@ -27,8 +28,14 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideRepository(api: ForecastApi, db: Database): Repository {
-        return Repository(api, db)
+    fun provideRepository(api: ForecastApi, cityDao: CityDao): Repository {
+        return Repository(api, cityDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCityDao(db: Database): CityDao {
+        return db.cityDao()
     }
 
     @Provides

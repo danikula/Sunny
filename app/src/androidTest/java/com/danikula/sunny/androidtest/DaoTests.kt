@@ -15,21 +15,22 @@ import org.junit.runner.RunWith
 import javax.inject.Inject
 
 /**
- * Tests for persistent storage layer
+ * Tests for persistent storage layer ([CityDao], [ForecastDao])
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
 @RunWith(AndroidJUnit4::class)
-class StorageTests {
+class DaoTests {
 
     @Inject
     lateinit var db: Database
-    private lateinit var cityDao: CityDao
+
+    @Inject
+    lateinit var cityDao: CityDao
 
     @Before
     fun setup() {
         TestInjectorFactory.newAppInjector().inject(this)
-        cityDao = db.cityDao()
     }
 
     @After
@@ -42,7 +43,7 @@ class StorageTests {
         val city = City(1, "Minsk", "BY")
         cityDao.insertCity(city)
 
-        val cities = cityDao.queryAllCities()
+        val cities = cityDao.queryAllCities().test().values().first()
         assertThat(cities, hasSize(1))
         assertThat(cities.first(), equalTo(city))
     }
@@ -55,7 +56,7 @@ class StorageTests {
         cityDao.insertCity(gomel)
 
         cityDao.deleteCity(gomel)
-        val cities = cityDao.queryAllCities()
+        val cities = cityDao.queryAllCities().test().values().first()
         assertThat(cities, hasSize(1))
         assertThat(cities.first(), equalTo(minsk))
     }
