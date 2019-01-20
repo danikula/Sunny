@@ -1,6 +1,6 @@
-package com.danikula.sunny
+package com.danikula.sunny.test
 
-import com.danikula.sunny.di.TestInjectorFactory
+import com.danikula.sunny.test.di.TestInjectorFactory
 import com.danikula.sunny.web.ForecastApi
 import org.junit.Assert.assertEquals
 import org.junit.Before

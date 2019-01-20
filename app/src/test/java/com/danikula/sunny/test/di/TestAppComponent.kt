@@ -1,12 +1,12 @@
-package com.danikula.sunny.di
+package com.danikula.sunny.test.di
 
-import com.danikula.sunny.WebTests
+import com.danikula.sunny.test.WebTests
 import com.danikula.sunny.web.ForecastApi
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [TestAppModule::class])
 interface TestAppComponent {
 
     fun forecastRestApi(): ForecastApi

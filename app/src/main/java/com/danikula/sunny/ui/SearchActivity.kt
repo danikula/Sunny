@@ -29,7 +29,7 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        InjectorFactory.newAppInjector().inject(this)
+        InjectorFactory.newAppInjector(application).inject(this)
         initViewModel()
         initUi()
     }

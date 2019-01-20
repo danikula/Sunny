@@ -10,7 +10,7 @@ import javax.inject.Inject
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
-open class Repository @Inject constructor(private val api: ForecastApi) {
+open class Repository @Inject constructor(private val api: ForecastApi, private val db: Database) {
 
     open fun searchCity(searchKey: String): Observable<List<City>> {
         return api.findCity(searchKey)

@@ -9,7 +9,7 @@ import io.reactivex.Observable
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
-class DummyRepository(api: ForecastApi) : Repository(api) {
+class DummyRepository(api: ForecastApi, db: Database) : Repository(api, db) {
 
     private val cities = listOf(
         City(1, "Minsk", "BY"),
