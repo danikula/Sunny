@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.danikula.sunny.R
 import com.danikula.sunny.model.City
 
 /**
@@ -12,7 +13,7 @@ import com.danikula.sunny.model.City
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
-class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
+class CityAdapter(private val clickListener: OnCityClickListener) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     private val cities: MutableList<City> = ArrayList()
 
@@ -24,8 +25,8 @@ class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
-        return CityViewHolder(itemView)
+        val itemView = inflater.inflate(R.layout.simple_list_item, parent, false)
+        return CityViewHolder(itemView, clickListener)
     }
 
     override fun getItemCount(): Int {
@@ -37,12 +38,21 @@ class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
         holder.bind(city)
     }
 
-    class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CityViewHolder(itemView: View, private val clickListener: OnCityClickListener) :
+        RecyclerView.ViewHolder(itemView) {
 
-        private val textView = itemView.findViewById<TextView>(android.R.id.text1)
+        private val textView = itemView.findViewById<TextView>(R.id.textView)
 
         fun bind(city: City) {
+            textView.isClickable = true
             textView.text = city.nameWithCountry()
+            textView.setOnClickListener { clickListener.onCityClick(city) }
         }
+    }
+
+    interface OnCityClickListener {
+
+        fun onCityClick(city: City)
+
     }
 }

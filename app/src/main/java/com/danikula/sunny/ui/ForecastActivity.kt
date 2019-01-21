@@ -12,7 +12,7 @@ class ForecastActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.forecast_activity)
+        setContentView(R.layout.activity_forecast)
 
         viewModel = ViewModelProviders.of(this).get(ForecastViewModel::class.java)
     }

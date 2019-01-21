@@ -1,9 +1,10 @@
 package com.danikula.sunny.di
 
 import com.danikula.sunny.data.Repository
+import com.danikula.sunny.ui.CitiesListActivity
 import com.danikula.sunny.ui.SearchActivity
 import com.danikula.sunny.viewmodel.SearchViewModel
-import com.danikula.sunny.viewmodel.SearchViewModelFactory
+import com.danikula.sunny.viewmodel.ViewModelFactory
 import com.danikula.sunny.web.ForecastApi
 import dagger.Component
 import javax.inject.Singleton
@@ -16,10 +17,12 @@ interface AppComponent {
 
     fun provideRepository(): Repository
 
-    fun provideSearchViewModelFactory(): SearchViewModelFactory
+    fun provideSearchViewModelFactory(): ViewModelFactory
 
     fun inject(searchViewModel: SearchViewModel)
 
     fun inject(searchActivity: SearchActivity)
+
+    fun inject(citiesListActivity: CitiesListActivity)
 
 }

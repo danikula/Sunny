@@ -2,7 +2,7 @@ package com.danikula.sunny.data
 
 import android.arch.persistence.room.*
 import com.danikula.sunny.model.City
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 /**
  * @author Alexey Danilov (danikula@gmail.com).
@@ -11,7 +11,7 @@ import io.reactivex.Single
 interface CityDao {
 
     @Query("SELECT * FROM city")
-    fun queryAllCities(): Single<List<City>>
+    fun queryAllCities(): Flowable<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCity(city: City): Long

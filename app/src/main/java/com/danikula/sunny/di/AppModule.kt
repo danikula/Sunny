@@ -6,7 +6,7 @@ import android.arch.persistence.room.Room
 import com.danikula.sunny.data.CityDao
 import com.danikula.sunny.data.Database
 import com.danikula.sunny.data.Repository
-import com.danikula.sunny.viewmodel.SearchViewModelFactory
+import com.danikula.sunny.viewmodel.ViewModelFactory
 import com.danikula.sunny.web.ForecastApi
 import com.danikula.sunny.web.ForecastApiFactory
 import dagger.Module
@@ -44,5 +44,5 @@ class AppModule(private val app: Application) {
         Room.databaseBuilder(app, Database::class.java, "sunny_db").build()
 
     @Provides
-    fun provideSearchViewModelFactory(factory: SearchViewModelFactory): ViewModelProvider.Factory = factory
+    fun provideSearchViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory = factory
 }

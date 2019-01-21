@@ -2,6 +2,7 @@ package com.danikula.sunny.data
 
 import com.danikula.sunny.model.City
 import com.danikula.sunny.web.ForecastApi
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -20,7 +21,7 @@ open class Repository @Inject constructor(
             .map { it.list.map { place -> place.toCity() } }
     }
 
-    fun queryAllCities(): Single<List<City>> = cityDao.queryAllCities()
+    fun queryAllCities(): Flowable<List<City>> = cityDao.queryAllCities()
 
     fun insertCity(city: City): Single<Long> {
         return Single.create { cityDao.insertCity(city) }

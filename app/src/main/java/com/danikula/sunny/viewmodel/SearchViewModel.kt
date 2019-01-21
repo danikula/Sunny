@@ -24,6 +24,12 @@ class SearchViewModel @Inject constructor(private val repository: Repository) : 
         disposables.add(disposable)
     }
 
+    fun onCitySelected(city: City) {
+        repository.insertCity(city)
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
     override fun onCleared() {
         disposables.dispose()
     }
