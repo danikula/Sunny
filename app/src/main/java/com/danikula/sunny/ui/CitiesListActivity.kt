@@ -2,6 +2,7 @@ package com.danikula.sunny.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.danikula.sunny.R
@@ -41,5 +42,6 @@ class CitiesListActivity : AppCompatActivity(), CityAdapter.OnCityClickListener 
 
     override fun onCityClick(city: City) {
         viewModel.onCitySelected(city)
+        startActivity(Intent(this, ForecastActivity::class.java))
     }
 }

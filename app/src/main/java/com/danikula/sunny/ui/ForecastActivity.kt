@@ -1,9 +1,11 @@
 package com.danikula.sunny.ui
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.danikula.sunny.R
 import com.danikula.sunny.databinding.ActivityForecastBinding
 import com.danikula.sunny.di.InjectorFactory
@@ -32,5 +34,13 @@ class ForecastActivity : AppCompatActivity() {
     private fun initUi() {
         val binding: ActivityForecastBinding = DataBindingUtil.setContentView(this, R.layout.activity_forecast)
         binding.viewModel = viewModel
+    }
+
+    fun onSearchClick(view: View) {
+        startActivity(Intent(this, SearchActivity::class.java))
+    }
+
+    fun onCitiesListClick(view: View) {
+        startActivity(Intent(this, CitiesListActivity::class.java))
     }
 }
