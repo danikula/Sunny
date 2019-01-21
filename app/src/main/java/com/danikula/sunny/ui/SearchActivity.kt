@@ -17,14 +17,14 @@ import kotlinx.android.synthetic.main.activity_search.*
 import java.util.Arrays.asList
 import javax.inject.Inject
 
-class SearchActivity : AppCompatActivity(), CityAdapter.OnCityClickListener {
+class SearchActivity : AppCompatActivity() {
 
     private val LOG_TAG: String by lazy { SearchActivity::class.java.toString() }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: SearchViewModel
-    private val searchResultsAdapter = CityAdapter(this)
+    private val searchResultsAdapter = CityAdapter(this::onCityClick)
     private lateinit var disposable: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class SearchActivity : AppCompatActivity(), CityAdapter.OnCityClickListener {
         Log.e(LOG_TAG, "Error searching a city", error)
     }
 
-    override fun onCityClick(city: City) {
+    private fun onCityClick(city: City) {
         viewModel.onCitySelected(city)
         startActivity(Intent(this, ForecastActivity::class.java))
     }

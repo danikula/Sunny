@@ -15,12 +15,12 @@ import kotlinx.android.synthetic.main.activity_search.*
 import java.util.*
 import javax.inject.Inject
 
-class CitiesListActivity : AppCompatActivity(), CityAdapter.OnCityClickListener {
+class CitiesListActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: CitiesListViewModel
-    private val adapter = CityAdapter(this)
+    private val adapter = CityAdapter(this::onCityClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class CitiesListActivity : AppCompatActivity(), CityAdapter.OnCityClickListener 
         recyclerView.setup(adapter)
     }
 
-    override fun onCityClick(city: City) {
+    private fun onCityClick(city: City) {
         viewModel.onCitySelected(city)
         startActivity(Intent(this, ForecastActivity::class.java))
     }

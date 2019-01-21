@@ -13,7 +13,7 @@ import com.danikula.sunny.model.City
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
-class CityAdapter(private val clickListener: OnCityClickListener) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
+class CityAdapter(private val clickListener: (City) -> Unit) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     private val cities: MutableList<City> = ArrayList()
 
@@ -38,7 +38,7 @@ class CityAdapter(private val clickListener: OnCityClickListener) : RecyclerView
         holder.bind(city)
     }
 
-    class CityViewHolder(itemView: View, private val clickListener: OnCityClickListener) :
+    class CityViewHolder(itemView: View, private val clickListener: (City) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
 
         private val textView = itemView.findViewById<TextView>(R.id.textView)
@@ -46,13 +46,7 @@ class CityAdapter(private val clickListener: OnCityClickListener) : RecyclerView
         fun bind(city: City) {
             textView.isClickable = true
             textView.text = city.nameWithCountry()
-            textView.setOnClickListener { clickListener.onCityClick(city) }
+            textView.setOnClickListener { clickListener(city) }
         }
-    }
-
-    interface OnCityClickListener {
-
-        fun onCityClick(city: City)
-
     }
 }
