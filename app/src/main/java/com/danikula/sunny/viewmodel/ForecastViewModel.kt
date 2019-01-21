@@ -16,6 +16,7 @@ class ForecastViewModel(repository: Repository, settings: Settings) : ViewModel(
     val hasSavedCities: ObservableBoolean = ObservableBoolean(false)
     var city: MutableLiveData<City> = MutableLiveData()
     var forecast: MutableLiveData<List<Forecast>> = MutableLiveData()
+    var errors: MutableLiveData<Throwable> = MutableLiveData()
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     init {
@@ -32,7 +33,7 @@ class ForecastViewModel(repository: Repository, settings: Settings) : ViewModel(
             disposable = repository.queryForecast(activeCityId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { f -> forecast.postValue(f) }
+                .subscribe({ f -> forecast.postValue(f) }, { t -> errors.postValue(t) })
             disposables.add(disposable)
         }
     }

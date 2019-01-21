@@ -6,7 +6,9 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.danikula.sunny.R
 import com.danikula.sunny.databinding.ActivityForecastBinding
 import com.danikula.sunny.di.InjectorFactory
@@ -18,6 +20,8 @@ import java.util.*
 import javax.inject.Inject
 
 class ForecastActivity : AppCompatActivity() {
+
+    private val LOG_TAG: String by lazy { ForecastActivity::class.java.toString() }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -36,6 +40,7 @@ class ForecastActivity : AppCompatActivity() {
         viewModel.forecast.observe(this, Observer {
             forecastAdapter.swapData(it ?: Arrays.asList())
         })
+        viewModel.errors.observe(this, Observer { onError(it) })
     }
 
     private fun initUi() {
@@ -44,6 +49,11 @@ class ForecastActivity : AppCompatActivity() {
         binding.setLifecycleOwner(this)
 
         recyclerView.setup(forecastAdapter)
+    }
+
+    private fun onError(error: Throwable?) {
+        Log.e(LOG_TAG, "Error fetching forecast", error)
+        Toast.makeText(this, getString(R.string.forecast_error), Toast.LENGTH_LONG).show()
     }
 
     fun onSearchClick(view: View) {

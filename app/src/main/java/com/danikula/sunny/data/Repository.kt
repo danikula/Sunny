@@ -14,7 +14,9 @@ import javax.inject.Inject
  * @author Alexey Danilov (danikula@gmail.com).
  */
 open class Repository @Inject constructor(
-    private val api: ForecastApi, private val cityDao: CityDao
+    private val api: ForecastApi,
+    private val cityDao: CityDao,
+    private val forecastDao: ForecastDao
 ) {
 
     open fun searchCity(searchKey: String): Observable<List<City>> {
@@ -37,7 +39,14 @@ open class Repository @Inject constructor(
     }
 
     fun queryForecast(cityId: Long): Observable<List<Forecast>> {
+        val apiForecast = fetchForecastFromApi(cityId)
+        val dbForecast = forecastDao.queryForCity(cityId).toObservable()
+        return Observable.concatArrayEager(apiForecast, dbForecast)
+    }
+
+    private fun fetchForecastFromApi(cityId: Long): Observable<List<Forecast>> {
         return api.getForecast(cityId)
             .map { it.list.map { forecastDto -> forecastDto.toForecast(cityId) } }
+            .doOnNext { forecastDao.updateForCity(cityId, it) }
     }
 }

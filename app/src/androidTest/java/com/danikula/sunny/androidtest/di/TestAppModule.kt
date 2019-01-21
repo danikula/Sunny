@@ -5,10 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.support.test.InstrumentationRegistry
-import com.danikula.sunny.data.CityDao
-import com.danikula.sunny.data.Database
-import com.danikula.sunny.data.Repository
-import com.danikula.sunny.data.Settings
+import com.danikula.sunny.data.*
 import com.danikula.sunny.web.ForecastApi
 import com.danikula.sunny.web.ForecastApiFactory
 import dagger.Module
@@ -35,11 +32,16 @@ class TestAppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(api: ForecastApi, cityDao: CityDao): Repository = Repository(api, cityDao)
+    fun provideRepository(api: ForecastApi, cityDao: CityDao, forecastDao: ForecastDao): Repository =
+        Repository(api, cityDao, forecastDao)
 
     @Provides
     @Singleton
     fun provideCityDao(db: Database): CityDao = db.cityDao()
+
+    @Provides
+    @Singleton
+    fun provideForecastDao(db: Database): ForecastDao = db.forecastDao()
 
     @Provides
     fun provideSharedPreferences(context: Context): SharedPreferences =

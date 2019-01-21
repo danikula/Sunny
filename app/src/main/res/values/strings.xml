@@ -4,6 +4,7 @@
     <string name="forecast_title">Forecast</string>
     <string name="forecast_button_search">Search City</string>
     <string name="forecast_button_list">Cities List</string>
+    <string name="forecast_error">Error fetching forecast</string>
 
     <string name="search_title">Search</string>
     <string name="search_hint">Enter city</string>

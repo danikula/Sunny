@@ -6,7 +6,7 @@ data class ForecastResponse(val list: List<CityForecast>)
 
 data class CityForecast(val dt: Long, val main: Temperature) {
     fun toForecast(cityId: Long): Forecast {
-        return Forecast(cityId, dt, main.toCelsius())
+        return Forecast(0, cityId, dt * 1000, main.toCelsius())
     }
 }
 
