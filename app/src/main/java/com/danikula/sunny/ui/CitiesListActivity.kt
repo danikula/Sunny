@@ -58,6 +58,8 @@ class CitiesListActivity : AppCompatActivity() {
 
     private fun onCityClick(city: City) {
         viewModel.onCitySelected(city)
-        startActivity(Intent(this, ForecastActivity::class.java))
+        val intent = Intent(this, ForecastActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 }
