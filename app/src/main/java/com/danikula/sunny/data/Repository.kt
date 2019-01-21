@@ -23,6 +23,8 @@ open class Repository @Inject constructor(
 
     fun queryAllCities(): Flowable<List<City>> = cityDao.queryAllCities()
 
+    fun queryCitiesCount(): Flowable<Int> = cityDao.queryCitiesCount()
+
     fun insertCity(city: City): Single<Long> {
         return Single.create { cityDao.insertCity(city) }
     }

@@ -2,6 +2,7 @@ package com.danikula.sunny.di
 
 import com.danikula.sunny.data.Repository
 import com.danikula.sunny.ui.CitiesListActivity
+import com.danikula.sunny.ui.ForecastActivity
 import com.danikula.sunny.ui.SearchActivity
 import com.danikula.sunny.viewmodel.SearchViewModel
 import com.danikula.sunny.viewmodel.ViewModelFactory
@@ -24,5 +25,7 @@ interface AppComponent {
     fun inject(searchActivity: SearchActivity)
 
     fun inject(citiesListActivity: CitiesListActivity)
+
+    fun inject(forecastActivity: ForecastActivity)
 
 }

@@ -10,8 +10,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-
-class SearchViewModel @Inject constructor(private val repository: Repository, private val settings: Settings) : ViewModel() {
+class SearchViewModel @Inject constructor(private val repository: Repository, private val settings: Settings) :
+    ViewModel() {
 
     var searchResult: MutableLiveData<List<City>> = MutableLiveData()
     var errors: MutableLiveData<Throwable> = MutableLiveData()

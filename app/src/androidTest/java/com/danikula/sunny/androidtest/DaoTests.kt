@@ -60,4 +60,15 @@ class DaoTests {
         assertThat(cities, hasSize(1))
         assertThat(cities.first(), equalTo(minsk))
     }
+
+    @Test
+    fun testCitiesCount() {
+        var count = cityDao.queryCitiesCount().test().values().first()
+        assertThat(count, equalTo(0))
+
+        cityDao.insertCity(City(1, "Minsk", "BY"))
+
+        count = cityDao.queryCitiesCount().test().values().first()
+        assertThat(count, equalTo(1))
+    }
 }
