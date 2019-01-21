@@ -56,19 +56,19 @@ class DaoTests {
         cityDao.insertCity(gomel)
 
         cityDao.deleteCity(gomel)
-        val cities = cityDao.queryAllCities().test().values().first()
+        val cities = cityDao.queryAllCities().test().awaitCount(1).values().first()
         assertThat(cities, hasSize(1))
         assertThat(cities.first(), equalTo(minsk))
     }
 
     @Test
     fun testCitiesCount() {
-        var count = cityDao.queryCitiesCount().test().values().first()
+        var count = cityDao.queryCitiesCount().test().awaitCount(1).values().first()
         assertThat(count, equalTo(0))
 
         cityDao.insertCity(City(1, "Minsk", "BY"))
 
-        count = cityDao.queryCitiesCount().test().values().first()
+        count = cityDao.queryCitiesCount().test().awaitCount(1).values().first()
         assertThat(count, equalTo(1))
     }
 }
