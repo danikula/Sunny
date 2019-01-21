@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CitiesListViewModel @Inject constructor(repository: Repository, private val settings: Settings) :
+class CitiesListViewModel @Inject constructor(private val repository: Repository, private val settings: Settings) :
     ViewModel() {
 
     var cities: MutableLiveData<List<City>> = MutableLiveData()
@@ -25,6 +25,13 @@ class CitiesListViewModel @Inject constructor(repository: Repository, private va
 
     fun onCitySelected(city: City) {
         settings.activeCityId = city.id
+    }
+
+    fun deleteCity(city: City) {
+        settings.activeCityId = null
+        repository.deleteCity(city)
+            .subscribeOn(Schedulers.io())
+            .subscribe()
     }
 
     override fun onCleared() {

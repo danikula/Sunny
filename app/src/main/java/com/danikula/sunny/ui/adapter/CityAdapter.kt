@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.danikula.sunny.R
 import com.danikula.sunny.model.City
 
+
 /**
  * An adapter for displaying list of cities.
  *
@@ -36,6 +37,13 @@ class CityAdapter(private val clickListener: (City) -> Unit) : RecyclerView.Adap
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
         val city = cities[position]
         holder.bind(city)
+    }
+
+    fun deleteCity(position: Int): City {
+        val city = cities[position]
+        cities.removeAt(position)
+        notifyItemRemoved(position)
+        return city
     }
 
     class CityViewHolder(itemView: View, private val clickListener: (City) -> Unit) :
