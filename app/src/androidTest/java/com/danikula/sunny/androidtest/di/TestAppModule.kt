@@ -2,10 +2,13 @@ package com.danikula.sunny.androidtest.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.support.test.InstrumentationRegistry
 import com.danikula.sunny.data.CityDao
 import com.danikula.sunny.data.Database
 import com.danikula.sunny.data.Repository
+import com.danikula.sunny.data.Settings
 import com.danikula.sunny.web.ForecastApi
 import com.danikula.sunny.web.ForecastApiFactory
 import dagger.Module
@@ -28,19 +31,20 @@ class TestAppModule {
 
     @Provides
     @Singleton
-    fun provideForecastApi(): ForecastApi {
-        return ForecastApiFactory.newApi()
-    }
+    fun provideForecastApi(): ForecastApi = ForecastApiFactory.newApi()
 
     @Provides
     @Singleton
-    fun provideRepository(api: ForecastApi, cityDao: CityDao): Repository {
-        return Repository(api, cityDao)
-    }
+    fun provideRepository(api: ForecastApi, cityDao: CityDao): Repository = Repository(api, cityDao)
 
     @Provides
     @Singleton
-    fun provideCityDao(db: Database): CityDao {
-        return db.cityDao()
-    }
+    fun provideCityDao(db: Database): CityDao = db.cityDao()
+
+    @Provides
+    fun provideSharedPreferences(context: Context): SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
+
+    @Provides
+    fun provideSettings(sharedPreferences: SharedPreferences): Settings = Settings(sharedPreferences)
 }

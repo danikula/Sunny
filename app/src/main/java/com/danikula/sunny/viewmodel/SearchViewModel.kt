@@ -3,6 +3,7 @@ package com.danikula.sunny.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.danikula.sunny.data.Repository
+import com.danikula.sunny.data.Settings
 import com.danikula.sunny.model.City
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class SearchViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class SearchViewModel @Inject constructor(private val repository: Repository, private val settings: Settings) : ViewModel() {
 
     var searchResult: MutableLiveData<List<City>> = MutableLiveData()
     var errors: MutableLiveData<Throwable> = MutableLiveData()
@@ -25,6 +26,8 @@ class SearchViewModel @Inject constructor(private val repository: Repository) : 
     }
 
     fun onCitySelected(city: City) {
+        settings.activeCityId = city.id
+
         repository.insertCity(city)
             .subscribeOn(Schedulers.io())
             .subscribe()
