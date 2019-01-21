@@ -48,13 +48,25 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintVertical_weight="1" />
 
+        <TextView
+            android:id="@+id/cityNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:text="@{viewModel.city.nameWithCountry()}"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            app:layout_constraintTop_toBottomOf="@+id/searchButton"
+            tools:text="London, UK" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cityNameTextView" />
 
     </android.support.constraint.ConstraintLayout>
 

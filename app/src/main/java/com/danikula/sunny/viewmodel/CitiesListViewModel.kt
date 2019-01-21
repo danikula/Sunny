@@ -3,13 +3,15 @@ package com.danikula.sunny.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.danikula.sunny.data.Repository
+import com.danikula.sunny.data.Settings
 import com.danikula.sunny.model.City
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CitiesListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class CitiesListViewModel @Inject constructor(repository: Repository, private val settings: Settings) :
+    ViewModel() {
 
     var cities: MutableLiveData<List<City>> = MutableLiveData()
     private val disposable: Disposable
@@ -22,7 +24,7 @@ class CitiesListViewModel @Inject constructor(private val repository: Repository
     }
 
     fun onCitySelected(city: City) {
-        // TODO:
+        settings.activeCityId = city.id
     }
 
     override fun onCleared() {

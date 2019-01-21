@@ -15,8 +15,8 @@ class ViewModelFactory @Inject constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel(repository, settings) as T
-            modelClass.isAssignableFrom(CitiesListViewModel::class.java) -> CitiesListViewModel(repository) as T
-            modelClass.isAssignableFrom(ForecastViewModel::class.java) -> ForecastViewModel(repository) as T
+            modelClass.isAssignableFrom(CitiesListViewModel::class.java) -> CitiesListViewModel(repository, settings) as T
+            modelClass.isAssignableFrom(ForecastViewModel::class.java) -> ForecastViewModel(repository, settings) as T
             else -> throw IllegalArgumentException("ViewModel Not Found")
         }
     }

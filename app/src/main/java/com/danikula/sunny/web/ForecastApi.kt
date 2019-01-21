@@ -17,6 +17,6 @@ interface ForecastApi {
     fun findCity(@Query("q") searchKey: String): Observable<PlacesSearchResponse>
 
     @GET("data/2.5/forecast")
-    fun getForecast(@Query("id") cityId: Int): Observable<ForecastResponse>
+    fun getForecast(@Query("id") cityId: Long): Observable<ForecastResponse>
 
 }

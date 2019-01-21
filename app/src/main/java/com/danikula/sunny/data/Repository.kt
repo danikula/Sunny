@@ -1,6 +1,7 @@
 package com.danikula.sunny.data
 
 import com.danikula.sunny.model.City
+import com.danikula.sunny.model.Forecast
 import com.danikula.sunny.web.ForecastApi
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -25,11 +26,18 @@ open class Repository @Inject constructor(
 
     fun queryCitiesCount(): Flowable<Int> = cityDao.queryCitiesCount()
 
+    fun queryCity(cityId: Long): Flowable<City> = cityDao.queryCity(cityId)
+
     fun insertCity(city: City): Single<Long> {
         return Single.create { cityDao.insertCity(city) }
     }
 
     fun deleteCity(city: City): Single<Int> {
         return Single.create { cityDao.deleteCity(city) }
+    }
+
+    fun queryForecast(cityId: Long): Observable<List<Forecast>> {
+        return api.getForecast(cityId)
+            .map { it.list.map { forecastDto -> forecastDto.toForecast(cityId) } }
     }
 }

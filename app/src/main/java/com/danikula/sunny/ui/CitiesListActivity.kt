@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import com.danikula.sunny.R
 import com.danikula.sunny.di.InjectorFactory
 import com.danikula.sunny.model.City
+import com.danikula.sunny.ui.adapter.CityAdapter
 import com.danikula.sunny.viewmodel.CitiesListViewModel
 import com.danikula.sunny.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_search.*

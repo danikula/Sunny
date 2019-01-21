@@ -16,6 +16,9 @@ interface CityDao {
     @Query("SELECT COUNT(id) FROM city")
     fun queryCitiesCount(): Flowable<Int>
 
+    @Query("SELECT * FROM city WHERE id = :cityId")
+    fun queryCity(cityId: Long): Flowable<City>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCity(city: City): Long
 

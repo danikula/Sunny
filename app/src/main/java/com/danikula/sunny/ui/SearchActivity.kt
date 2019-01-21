@@ -9,6 +9,7 @@ import android.util.Log
 import com.danikula.sunny.R
 import com.danikula.sunny.di.InjectorFactory
 import com.danikula.sunny.model.City
+import com.danikula.sunny.ui.adapter.CityAdapter
 import com.danikula.sunny.viewmodel.SearchViewModel
 import com.danikula.sunny.viewmodel.ViewModelFactory
 import io.reactivex.disposables.Disposable
