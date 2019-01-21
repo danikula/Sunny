@@ -1,28 +1,25 @@
 package com.danikula.sunny.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import com.danikula.sunny.data.Repository
 import com.danikula.sunny.data.Settings
 import com.danikula.sunny.model.City
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(private val repository: Repository, private val settings: Settings) :
-    ViewModel() {
+    BaseViewModel() {
 
-    var searchResult: MutableLiveData<List<City>> = MutableLiveData()
-    var errors: MutableLiveData<Throwable> = MutableLiveData()
-    private val disposables: CompositeDisposable = CompositeDisposable()
+    val searchResult: MutableLiveData<List<City>> = MutableLiveData()
+    val errors: MutableLiveData<Throwable> = MutableLiveData()
 
     fun search(searchKey: CharSequence) {
         val disposable = repository.searchCity(searchKey.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ searchResult.postValue(it) }, { errors.postValue(it) })
-        disposables.add(disposable)
+        addDisposable(disposable)
     }
 
     fun onCitySelected(city: City) {
@@ -31,9 +28,5 @@ class SearchViewModel @Inject constructor(private val repository: Repository, pr
         repository.insertCity(city)
             .subscribeOn(Schedulers.io())
             .subscribe()
-    }
-
-    override fun onCleared() {
-        disposables.dispose()
     }
 }

@@ -41,7 +41,7 @@ open class Repository @Inject constructor(
     fun queryForecast(cityId: Long): Observable<List<Forecast>> {
         val apiForecast = fetchForecastFromApi(cityId)
         val dbForecast = forecastDao.queryForCity(cityId).toObservable()
-        return Observable.concatArrayEager(apiForecast, dbForecast)
+        return Observable.mergeDelayError(apiForecast, dbForecast)
     }
 
     private fun fetchForecastFromApi(cityId: Long): Observable<List<Forecast>> {

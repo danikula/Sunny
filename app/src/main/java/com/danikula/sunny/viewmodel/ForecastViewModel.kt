@@ -1,44 +1,37 @@
 package com.danikula.sunny.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import com.danikula.sunny.data.Repository
 import com.danikula.sunny.data.Settings
 import com.danikula.sunny.model.City
 import com.danikula.sunny.model.Forecast
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ForecastViewModel(repository: Repository, settings: Settings) : ViewModel() {
+class ForecastViewModel(repository: Repository, settings: Settings) : BaseViewModel() {
 
     val hasSavedCities: ObservableBoolean = ObservableBoolean(false)
-    var city: MutableLiveData<City> = MutableLiveData()
-    var forecast: MutableLiveData<List<Forecast>> = MutableLiveData()
-    var errors: MutableLiveData<Throwable> = MutableLiveData()
-    private val disposables: CompositeDisposable = CompositeDisposable()
+    val city: MutableLiveData<City> = MutableLiveData()
+    val forecast: MutableLiveData<List<Forecast>> = MutableLiveData()
+    val errors: MutableLiveData<Throwable> = MutableLiveData()
 
     init {
         var disposable = repository.queryCitiesCount()
+            .subscribeOn(Schedulers.io())
             .subscribe { hasSavedCities.set(it > 0) }
-        disposables.add(disposable)
+        addDisposable(disposable)
 
         val activeCityId = settings.activeCityId
         activeCityId?.let {
             disposable = repository.queryCity(activeCityId)
+                .subscribeOn(Schedulers.io())
                 .subscribe { c -> city.postValue(c) }
-            disposables.add(disposable)
+            addDisposable(disposable)
 
             disposable = repository.queryForecast(activeCityId)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ f -> forecast.postValue(f) }, { t -> errors.postValue(t) })
-            disposables.add(disposable)
+            addDisposable(disposable)
         }
-    }
-
-    override fun onCleared() {
-        disposables.dispose()
     }
 }

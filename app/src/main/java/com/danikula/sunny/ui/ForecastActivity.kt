@@ -21,7 +21,9 @@ import javax.inject.Inject
 
 class ForecastActivity : AppCompatActivity() {
 
-    private val LOG_TAG: String by lazy { ForecastActivity::class.java.toString() }
+    companion object {
+        private val LOG_TAG = this::class.java.simpleName
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory

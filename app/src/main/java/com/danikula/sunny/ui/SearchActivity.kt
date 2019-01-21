@@ -19,7 +19,9 @@ import javax.inject.Inject
 
 class SearchActivity : AppCompatActivity() {
 
-    private val LOG_TAG: String by lazy { SearchActivity::class.java.toString() }
+    companion object {
+        private val LOG_TAG = this::class.java.simpleName
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
