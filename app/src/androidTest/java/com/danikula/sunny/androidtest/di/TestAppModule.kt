@@ -1,11 +1,13 @@
 package com.danikula.sunny.androidtest.di
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.persistence.room.Room
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.support.test.InstrumentationRegistry
 import com.danikula.sunny.data.*
+import com.danikula.sunny.viewmodel.ViewModelFactory
 import com.danikula.sunny.web.ForecastApi
 import com.danikula.sunny.web.ForecastApiFactory
 import dagger.Module
@@ -49,4 +51,8 @@ class TestAppModule {
 
     @Provides
     fun provideSettings(sharedPreferences: SharedPreferences): Settings = Settings(sharedPreferences)
+
+    @Provides
+    fun provideSearchViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory = factory
+
 }

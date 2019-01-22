@@ -80,6 +80,9 @@ class DaoTests {
     fun testInsertAndQuery() {
         val minskId = 1L
         val brestId = 2L
+        cityDao.insertCity(City(minskId, "Minsk", "BY"))
+        cityDao.insertCity(City(brestId, "Brest", "BY"))
+
         forecastDao.insertMany(
             listOf(
                 Forecast(0, minskId, 0, 0),

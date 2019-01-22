@@ -12,7 +12,7 @@ import javax.inject.Inject
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
-const val LONDON_ID: Int = 2643743
+const val LONDON_ID = 2643743L
 
 class WebTests {
 
